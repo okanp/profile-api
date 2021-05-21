@@ -12,7 +12,6 @@ import com.venus.profile.repository.CandidateRepository;
 import com.venus.profile.repository.PreferenceRepository;
 import com.venus.profile.repository.ProfileRepository;
 import com.venus.profile.util.Constants;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -56,10 +55,10 @@ class ProfileApplicationIT {
     @Autowired
     private PreferenceRepository preferenceRepository;
 
-    @BeforeEach
     void setup() {
         candidateRepository.deleteAll();
         profileRepository.deleteAll();
+        preferenceRepository.deleteAll();
     }
 
     @Test
@@ -86,6 +85,21 @@ class ProfileApplicationIT {
         assertThat(profile.getGender(), is(pd1.getGender()));
         assertThat(profile.getBirthday(), equalTo(pd1.getBirthday()));
         assertThat(profile.getId(), notNullValue());
+    }
+
+    @Test
+    void should_fail_to_save_profile_when_birthday_is_absent() throws Exception {
+        ProfileDto pd1 = new ProfileDto();
+        pd1.setName("okan");
+        pd1.setGender(Constants.MALE);
+        pd1.setBirthday(null);
+
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .post("/v1/profile")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(pd1)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andDo(print());
     }
 
     @Test

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -27,12 +28,12 @@ public class ProfileController {
     }
 
     @PostMapping("/{id}")
-    public ProfileDto updateProfile(@RequestBody ProfileDto profileDto) {
+    public ProfileDto updateProfile(@RequestBody @Valid ProfileDto profileDto) {
         return service.saveProfile(profileDto);
     }
 
     @PostMapping
-    public ProfileDto saveProfile(@RequestBody ProfileDto profileDto) {
+    public ProfileDto saveProfile(@Valid @RequestBody ProfileDto profileDto) {
         return service.saveProfile(profileDto);
     }
 
