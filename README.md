@@ -1,14 +1,13 @@
 
-kisaca anlattim simdiye kadar yaptiklarimi. ~15dklik bi video. projeyi anlamak icin src/test'ler de okunabilir.
-
+### requirements
+postgres 11+
 ```
-https://www.dropbox.com/s/incqu94f3hc8dpk/venus480p.mov?dl=0
-```
-
-
-database console:
-```
-http://localhost:8081/h2-console
+url=jdbc:postgresql://localhost:5432/profile
+host: localhost
+port: 5432
+dbname: profile (ayrica unit testler icin profile-test)
+spring.datasource.username=postgres
+spring.datasource.password=postgres
 ```
 
 swagger ui:
@@ -24,8 +23,8 @@ http://localhost:8081/swagger-ui.html
 - ~~imagelari paylasma (blob sanirim)~~
 - ~~validation (dogum gunu eksik vs.)~~
 - ~~error handlers + response messages~~
+- ~~postgres + earthdistance~~
 - yukselen, ya da astrolojik hesaplar
-- postgres + earthdistance
 - dockerize
 - cicd (+hosting)
 - guvenlik (headerdan, profil sahibini bulup o operasyona izni var mi diye kontrol)

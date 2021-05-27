@@ -1,15 +1,17 @@
-package com.venus.profile.model.mapper;
+package com.venus.profile.domain.mapper;
 
-import com.venus.profile.model.dto.CandidateDto;
-import com.venus.profile.model.entity.Candidate;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.venus.profile.domain.dto.CandidateDto;
+import com.venus.profile.domain.entity.Candidate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CandidateMapper {
 
-    @Autowired
     private ProfileMapper profileMapper;
+
+    public CandidateMapper(ProfileMapper profileMapper) {
+        this.profileMapper = profileMapper;
+    }
 
     public CandidateDto toCandidateDto(Candidate source) {
         if (source == null) {

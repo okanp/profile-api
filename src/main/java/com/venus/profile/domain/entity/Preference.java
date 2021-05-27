@@ -1,7 +1,7 @@
-package com.venus.profile.model.entity;
+package com.venus.profile.domain.entity;
 
+import com.venus.profile.domain.enums.Gender;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -11,7 +11,6 @@ public class Preference {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Type(type = "uuid-char")
     private UUID id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
@@ -23,7 +22,8 @@ public class Preference {
     @Column(name = "min_age")
     private int minAge = 18;
     @Column(name = "gender")
-    private int gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     public Profile getProfile() {
         return profile;
@@ -65,11 +65,11 @@ public class Preference {
         this.id = id;
     }
 
-    public int getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 }

@@ -1,11 +1,12 @@
 package com.venus.profile.service;
 
 import com.venus.profile.config.ConfigProperties;
-import com.venus.profile.model.dto.ProfileDto;
-import com.venus.profile.model.entity.Profile;
-import com.venus.profile.model.mapper.ProfileMapper;
+import com.venus.profile.domain.dto.ProfileDto;
+import com.venus.profile.domain.entity.Profile;
+import com.venus.profile.domain.mapper.ProfileMapper;
 import com.venus.profile.repository.ProfileRepository;
 import com.venus.profile.util.FileUpload;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
@@ -19,34 +20,32 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ProfileService {
 
     private Logger logger = LoggerFactory.getLogger(ProfileService.class);
 
-    private ProfileRepository repository;
+    private final ProfileRepository repository;
 
-    private ConfigProperties properties;
+    private final ConfigProperties properties;
 
-    private ProfileMapper mapper;
-
-    public ProfileService(ProfileRepository repository, ConfigProperties properties, ProfileMapper mapper) {
-        this.repository = repository;
-        this.properties = properties;
-        this.mapper = mapper;
-    }
+    private final ProfileMapper mapper;
 
     public ProfileDto findOne(UUID id) {
         return mapper.toProfileDto(repository.findOneById(id));
     }
 
     public List<ProfileDto> findAll(Pageable page) {
-        return mapper.toProfileDto(repository.findAll(page).toList());
+        return repository.findAll(page).map(mapper::toProfileDto).toList();
     }
 
     public List<ProfileDto> findAllByLastCandidateSearchTimeBefore(ZonedDateTime time) {
-        return mapper.toProfileDto(repository.findAllByLastCandidateSearchTimeBeforeOrLastCandidateSearchTimeIsNull(time));
+        return repository.findAllByLastCandidateSearchTimeBeforeOrLastCandidateSearchTimeIsNull(time).stream()
+                .map(mapper::toProfileDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional

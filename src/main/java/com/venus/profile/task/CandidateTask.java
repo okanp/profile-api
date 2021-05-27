@@ -1,7 +1,6 @@
 package com.venus.profile.task;
 
-import com.venus.profile.model.dto.ProfileDto;
-import com.venus.profile.service.CandidateCalculatorService;
+import com.venus.profile.domain.dto.ProfileDto;
 import com.venus.profile.service.CandidateService;
 import com.venus.profile.service.ProfileService;
 import org.slf4j.Logger;
@@ -23,11 +22,8 @@ public class CandidateTask {
 
     private CandidateService candidateService;
 
-    private CandidateCalculatorService candidateCalculatorService;
-
-    public CandidateTask(ProfileService profileService, CandidateCalculatorService candidateCalculatorService, CandidateService candidateService) {
+    public CandidateTask(ProfileService profileService, CandidateService candidateService) {
         this.profileService = profileService;
-        this.candidateCalculatorService = candidateCalculatorService;
         this.candidateService = candidateService;
     }
 
@@ -44,7 +40,7 @@ public class CandidateTask {
         logger.info("findCandidates job started");
         ZonedDateTime time = ZonedDateTime.now().minusHours(24);
         List<ProfileDto> profiles = profileService.findAllByLastCandidateSearchTimeBefore(time);
-        profiles.forEach(x -> candidateCalculatorService.trigger(x.getId()));
+        profiles.forEach(x -> candidateService.trigger(x.getId()));
     }
 
     @Scheduled(cron = "0 0 * * * ?")

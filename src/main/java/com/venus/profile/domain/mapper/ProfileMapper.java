@@ -1,27 +1,19 @@
-package com.venus.profile.model.mapper;
+package com.venus.profile.domain.mapper;
 
-import com.venus.profile.model.dto.ProfileDto;
-import com.venus.profile.model.entity.Profile;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.venus.profile.domain.dto.ProfileDto;
+import com.venus.profile.domain.entity.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProfileMapper {
 
-    @Autowired
     private PreferenceMapper preferenceMapper;
 
-    public List<ProfileDto> toProfileDto(List<Profile> profile) {
-        return profile.stream().map(this::toProfileDto).collect(Collectors.toList());
-    }
-
-    public List<Profile> toProfile(List<ProfileDto> profile) {
-        return profile.stream().map(this::toProfile).collect(Collectors.toList());
+    public ProfileMapper(PreferenceMapper preferenceMapper) {
+        this.preferenceMapper = preferenceMapper;
     }
 
     public ProfileDto toProfileDto(Profile source) {

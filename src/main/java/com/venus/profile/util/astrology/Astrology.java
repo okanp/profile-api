@@ -1,13 +1,18 @@
-package com.venus.profile.util;
+package com.venus.profile.util.astrology;
 
 import java.time.ZonedDateTime;
 import java.util.Random;
 
+/*
+ *
+ * http://radixpro.com/a4a-start/sidereal-time/
+ *
+ */
 public class Astrology {
 
     private static final Random RANDOM = new Random();
 
-    private enum Zodiac {
+    public enum Zodiac {
         AIRES, TAURUS, GEMINI, CANCER, LEO, VIRGO, LIBRA, SCORPIO, SAGITTARIUS, CAPRICORN, AQUARIUS, PISCES
     }
 
@@ -40,13 +45,5 @@ public class Astrology {
         } else { // month == 12 && day >= 1 && day <= 21
             return Zodiac.SAGITTARIUS;
         }
-    }
-
-    /*
-     * yukselen hesabi
-     */
-    public static Zodiac ascendant(ZonedDateTime birthdayAndTime, double lat, double lon) {
-        Zodiac[] zodiacs = Zodiac.values();
-        return zodiacs[RANDOM.nextInt(zodiacs.length)];
     }
 }

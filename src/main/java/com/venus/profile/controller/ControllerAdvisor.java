@@ -1,6 +1,7 @@
-package com.venus.profile.util;
+package com.venus.profile.controller;
 
-import com.venus.profile.exception.EntityNotFoundException;
+import com.venus.profile.domain.enums.Error;
+import com.venus.profile.domain.exception.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,16 +30,16 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         }
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("error", "ERR-001");
+        body.put("error", Error.INVALID_REQUEST_PARAM);
         body.put("message", details);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> handleInvalidGameStateException(EntityNotFoundException ex, WebRequest request) {
+    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("error", "ERR-001");
+        body.put("error", Error.ENTITY_NOT_FOUND);
         body.put("message", ex.getMessage());
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }

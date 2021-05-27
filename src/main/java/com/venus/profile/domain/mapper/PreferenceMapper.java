@@ -1,12 +1,12 @@
-package com.venus.profile.model.mapper;
+package com.venus.profile.domain.mapper;
 
-import com.venus.profile.model.dto.PreferenceDto;
-import com.venus.profile.model.entity.Preference;
+import com.venus.profile.domain.dto.PreferenceDto;
+import com.venus.profile.domain.entity.Preference;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PreferenceMapper {
-    public PreferenceDto toPreferenceDto(Preference source) {
+class PreferenceMapper {
+    PreferenceDto toPreferenceDto(Preference source) {
         if (source == null) {
             return null;
         }
@@ -18,7 +18,7 @@ public class PreferenceMapper {
         return target;
     }
 
-    public Preference toPreference(PreferenceDto source) {
+    Preference toPreference(PreferenceDto source) {
         if (source == null) {
             return null;
         }

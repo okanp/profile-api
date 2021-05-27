@@ -1,6 +1,8 @@
 package com.venus.profile.controller;
 
-import com.venus.profile.model.dto.CandidateDto;
+import com.venus.profile.domain.dto.CandidateDto;
+import com.venus.profile.domain.enums.CandidateResponse;
+import com.venus.profile.domain.enums.CandidateStatus;
 import com.venus.profile.service.CandidateService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +31,17 @@ public class CandidateController {
     }
 
     @PostMapping("/{id}/profile/{profileId}/swipe")
-    public void swipe(@PathVariable UUID id, @PathVariable UUID profileId, @RequestParam int response) {
+    public void swipe(@PathVariable UUID id, @PathVariable UUID profileId, @RequestParam CandidateResponse response) {
         service.swipe(id, profileId, response);
     }
 
     @GetMapping("/profile/{profileId}")
-    public List<CandidateDto> findCandidates(@PathVariable UUID profileId, @RequestParam(defaultValue = "0") int status, Pageable page) {
-        return service.findAllCandidatesByProfileId(profileId, status, page);
+    public List<CandidateDto> findCandidates(@PathVariable UUID profileId, @RequestParam(defaultValue = "NONE") CandidateStatus status, @RequestParam(required = false) CandidateResponse response, Pageable page) {
+        return service.findAllCandidatesByProfileId(profileId, status, response, page);
+    }
+
+    @GetMapping("/profile/{profileId}/trigger")
+    void triggerCandidateCalculationForProfile(@PathVariable UUID profileId) {
+        service.trigger(profileId);
     }
 }

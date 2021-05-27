@@ -1,6 +1,6 @@
 package com.venus.profile.repository;
 
-import com.venus.profile.model.entity.Candidate;
+import com.venus.profile.domain.entity.Candidate;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

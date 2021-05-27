@@ -1,8 +1,8 @@
 package com.venus.profile.controller;
 
-import com.venus.profile.annotation.ApiPageable;
-import com.venus.profile.model.dto.ProfileDto;
+import com.venus.profile.domain.dto.ProfileDto;
 import com.venus.profile.service.ProfileService;
+import com.venus.profile.util.annotation.ApiPageable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

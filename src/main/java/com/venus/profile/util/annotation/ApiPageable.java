@@ -1,4 +1,4 @@
-package com.venus.profile.annotation;
+package com.venus.profile.util.annotation;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

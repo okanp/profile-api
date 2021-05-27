@@ -1,4 +1,4 @@
-package com.venus.profile.exception;
+package com.venus.profile.domain.exception;
 
 public class EntityNotFoundException extends RuntimeException {
 
