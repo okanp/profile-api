@@ -2,47 +2,28 @@ package com.venus.profile.domain.mapper;
 
 import com.venus.profile.domain.dto.ProfileDto;
 import com.venus.profile.domain.entity.Profile;
-import org.springframework.stereotype.Service;
+import org.mapstruct.*;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
-@Service
-public class ProfileMapper {
+@Mapper(componentModel = "spring", uses = {PreferenceMapper.class})
+public abstract class ProfileMapper {
 
-    private PreferenceMapper preferenceMapper;
+    @Mapping(source = "birthday", target = "age", qualifiedByName = "birthdayToAge")
+    public abstract ProfileDto toProfileDto(Profile source);
 
-    public ProfileMapper(PreferenceMapper preferenceMapper) {
-        this.preferenceMapper = preferenceMapper;
-    }
+    public abstract Profile toProfile(ProfileDto source);
 
-    public ProfileDto toProfileDto(Profile source) {
-        ProfileDto target = new ProfileDto();
-        target.setName(source.getName());
-        target.setId(source.getId());
-        int years = (int) ChronoUnit.YEARS.between(source.getBirthday(), ZonedDateTime.now());
-        target.setAge(years + 1);
-        target.setGender(source.getGender());
-        target.setPhotos(source.getPhotos());
-        target.setPreference(preferenceMapper.toPreferenceDto(source.getPreference()));
-        target.setBirthday(source.getBirthday());
-        return target;
-    }
-
-    public Profile toProfile(ProfileDto source) {
-        Profile target = new Profile();
-        target.setName(source.getName());
-        target.setId(source.getId());
-        target.setGender(source.getGender());
-        target.setPhotos(source.getPhotos());
-        target.setBirthday(source.getBirthday());
-        target.setPreference(preferenceMapper.toPreference(source.getPreference()));
-        if (target.getPreference() != null) {
-            target.getPreference().setProfile(target);
+    @AfterMapping
+    void setPreferenceProfile(@MappingTarget Profile profile) {
+        if (profile.getPreference() != null) {
+            profile.getPreference().setProfile(profile);
         }
-        target.setLat(source.getLat());
-        target.setLon(source.getLon());
-        return target;
     }
 
+    @Named("birthdayToAge")
+    static double birthdayToAge(ZonedDateTime birthday) {
+        return ((int) ChronoUnit.YEARS.between(birthday, ZonedDateTime.now())) + 1;
+    }
 }
