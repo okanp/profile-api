@@ -1,6 +1,10 @@
 
 ### requirements
-postgres 11+
+- postgres 11+
+- java 11
+- intellij'de annotation proccessers acik olmali
+- asagidaki konfigurasyon ile calisan bir veritabani
+
 ```
 url=jdbc:postgresql://localhost:5432/profile
 host: localhost
