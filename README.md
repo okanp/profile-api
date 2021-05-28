@@ -3,6 +3,7 @@
 - postgres 11+
 - java 11
 - intellij'de annotation proccessers acik olmali
+- intellij'de lombok plugini olmali
 - asagidaki konfigurasyon ile calisan bir veritabani
 
 ```
