@@ -5,6 +5,7 @@ pipeline {
 	    IMAGE_NAME = "venus/profile"
 	    IMAGE_TAG = "latest"
 	    NETWORK_NAME = "venusnet"
+	    PORT = "8081:8081"
 	}
 	stages {
 		stage('Checkout') {
@@ -33,7 +34,7 @@ pipeline {
 		stage('Deploy') {
             steps {
                 echo 'Deploy'
-                sh 'docker run --name ${CONTAINER_NAME} -d -p 8081:8081 --network=${NETWORK_NAME} ${IMAGE_NAME}:${IMAGE_TAG} '
+                sh 'docker run --name ${CONTAINER_NAME} -d -p ${PORT} --network=${NETWORK_NAME} ${IMAGE_NAME}:${IMAGE_TAG} '
             }
         }
 	}

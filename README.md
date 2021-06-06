@@ -16,7 +16,7 @@ docker-compose up -d
 ```
 host: localhost
 port: 5432
-dbname: profile (and one for tests profile-test)
+dbname: profile (and one for tests: profile-test)
 spring.datasource.username=postgres
 spring.datasource.password=postgres
 ```
@@ -28,5 +28,5 @@ http://localhost:8081/swagger-ui.html
 
 staging
 ```
-http://174.138.32.159:8081
+http://174.138.32.159:8081/swagger-ui.html
 ```
