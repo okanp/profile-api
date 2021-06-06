@@ -21,12 +21,4 @@ services:
       - POSTGRES_DB=profile
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  profiledb-test:
-    image: postgres:11
-    container_name: profiledb-test
-    ports:
-      - "5433:5432"
-    environment:
-      - POSTGRES_DB=profiletest
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+
