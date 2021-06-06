@@ -31,7 +31,7 @@ pipeline {
 		stage('Deploy') {
             steps {
                 echo 'Deploy'
-                sh 'docker run --rm --name profile-api-app -d -p 8081:8081  venus/profile:latest'
+                sh 'docker run --name profile-api-app -d -p 8081:8081  venus/profile:latest'
             }
         }
 	}
