@@ -3,21 +3,30 @@ services:
   profile:
     container_name: profile
     image: profile
-    build: ./profile
+    build: .
     ports:
       - "8081:8081"
     depends_on:
-      - profile_db
+      - profiledb
+      - profiledb-test
     links:
-      - profile_db
-  profile_db:
-    image: profile:11
-    container_name: profile_db
+      - profiledb-test
+      - profiledb
+  profiledb:
+    image: postgres:11
+    container_name: profiledb
     ports:
       - "5432:5432"
-    volumes:
-      - /var/www/mangaladb/data:/var/lib/postgresql/data
     environment:
+      - POSTGRES_DB=profile
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=profile
+  profiledb-test:
+    image: postgres:11
+    container_name: profiledb-test
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=profiletest
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres

@@ -18,9 +18,8 @@ class EloTest {
         int[] results = Elo.game(oldA, oldB, true);
 
         int diffA1 = Math.abs(results[0] - oldA);
-        int diffB1 = Math.abs(results[1] - oldB);
-        assertThat(diffA1 > 0, is(true));
-        assertThat(diffB1 < 0, is(true));
+        int diffB1 =     Math.abs(results[1] - oldB);
+        assertThat(diffB1 > diffA1, is(true));
 
         int oldA2 = 1200, oldB2 = 1200;
         int[] results2 = Elo.game(oldA2, oldB2, true);

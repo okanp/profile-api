@@ -34,3 +34,10 @@ http://localhost:8081/swagger-ui.html
 - cicd (+hosting)
 - guvenlik (headerdan, profil sahibini bulup o operasyona izni var mi diye kontrol)
 - notification
+
+
+jenkins
+okan
+nG4P9RWxMDvpnhs
+http://174.138.32.159:8079
+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 --okan token

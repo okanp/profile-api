@@ -16,7 +16,7 @@ import java.util.UUID;
 @RequestMapping("/v1/profile")
 public class ProfileController {
 
-    private ProfileService service;
+    private final ProfileService service;
 
     public ProfileController(ProfileService service) {
         this.service = service;

@@ -1,6 +1,7 @@
--- Table: public.profile
+create extension if not exists cube;
+create extension if not exists earthdistance;
 
- DROP TABLE IF EXISTS public.profile CASCADE;
+DROP TABLE IF EXISTS public.profile CASCADE;
 
 CREATE TABLE public.profile
 (
