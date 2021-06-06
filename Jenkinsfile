@@ -3,6 +3,7 @@ pipeline {
 	environment {
 	    CONTAINER_NAME = "profile-api"
 	    IMAGE_NAME = "venus/profile"
+	    IMAGE_TAG = "latest"
 	}
 	stages {
 		stage('Checkout') {
@@ -18,7 +19,7 @@ pipeline {
 				unstash 'sources'
 				sh 'mvn clean package -DskipTests'
 				stash 'sources'
-				sh 'docker build -t ${IMAGE_NAME}:latest .'
+				sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
 			}
 		}
 		stage('Clean up') {
@@ -31,7 +32,7 @@ pipeline {
 		stage('Deploy') {
             steps {
                 echo 'Deploy'
-                sh 'docker run --name ${CONTAINER_NAME} -d -p 8081:8081  ${IMAGE_NAME} '
+                sh 'docker run --name ${CONTAINER_NAME} -d -p 8081:8081  ${IMAGE_NAME}:${IMAGE_TAG} '
             }
         }
 	}
