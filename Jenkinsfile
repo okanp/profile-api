@@ -1,6 +1,6 @@
 pipeline {
 	agent any
-	enviromment {
+	environment {
 	    CONTAINER_NAME = "profile-api-app"
 	    IMAGE_NAME = "venus/profile"
 	}
