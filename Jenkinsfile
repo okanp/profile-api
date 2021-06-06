@@ -4,6 +4,7 @@ pipeline {
 	    CONTAINER_NAME = "profile-api"
 	    IMAGE_NAME = "venus/profile"
 	    IMAGE_TAG = "latest"
+	    NETWORK_NAME = "venusnet"
 	}
 	stages {
 		stage('Checkout') {
@@ -32,7 +33,7 @@ pipeline {
 		stage('Deploy') {
             steps {
                 echo 'Deploy'
-                sh 'docker run --name ${CONTAINER_NAME} -d -p 8081:8081  ${IMAGE_NAME}:${IMAGE_TAG} '
+                sh 'docker run --name ${CONTAINER_NAME} -d -p 8081:8081 --network=${NETWORK_NAME} ${IMAGE_NAME}:${IMAGE_TAG} '
             }
         }
 	}

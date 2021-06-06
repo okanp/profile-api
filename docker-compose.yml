@@ -24,4 +24,5 @@ services:
 networks:
   venusnet:
     driver: bridge
+    name: venusnet
 
