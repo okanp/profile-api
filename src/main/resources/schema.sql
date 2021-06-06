@@ -8,7 +8,7 @@ CREATE TABLE public.profile
     id uuid NOT NULL,
     birthday timestamp without time zone,
     elo_ranking integer,
-    gender integer,
+    gender varchar(32),
     last_active_time timestamp without time zone,
     last_candidate_search_time timestamp without time zone,
     lat double precision,
